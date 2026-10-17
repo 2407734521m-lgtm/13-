@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d1020">
+<title>我们的班级 · 青春档案</title>
+<style>
+:root{--ink:#0d1020;--fg:#eceaf6;--mut:#9a98b3;--glass:rgba(255,255,255,.07);--line:rgba(255,255,255,.12);--a:#7ef0c8;--b:#1d6b5e;--c:#0f2a2f;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{overflow-x:hidden}
+body{background:var(--ink);color:var(--fg);font:15px/1.6 -apple-system,"PingFang SC","Noto Sans SC",system-ui,sans-serif;min-height:100dvh;padding:env(safe-area-inset-top) 0 calc(84px + env(safe-area-inset-bottom))}
+body:before{content:"";position:fixed;inset:-20%;z-index:-1;background:radial-gradient(40% 35% at 20% 15%,#3b3a8a66,transparent),radial-gradient(35% 30% at 85% 80%,#1d6b8f55,transparent)}
+h1,h3,.serif{font-family:"Songti SC","Noto Serif SC",Georgia,serif;font-weight:600;letter-spacing:.02em}
+.mut{color:var(--mut)}
+#app>*{animation:in .5s var(--ease) both}
+@keyframes in{from{opacity:0;transform:translateY(12px)}}
+.glass{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);border-radius:24px}
+.top{padding:28px 20px 8px;max-width:1000px;margin:auto}.top h1{font-size:30px}.top input{margin-top:14px}
+input,textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;color:var(--fg);font:inherit;padding:13px 16px;min-height:48px;outline:none}
+input:focus,textarea:focus{border-color:var(--a)}
+.btn{width:100%;min-height:48px;border:0;border-radius:14px;background:var(--fg);color:var(--ink);font:inherit;font-weight:600;cursor:pointer;transition:transform .2s var(--ease)}.btn:active{transform:scale(.98)}
+.err{color:#ff9b9b;min-height:1.2em;font-size:13px}
+.auth{max-width:380px;margin:10vh 20px 0;padding:32px 24px;display:grid;gap:14px}
+@media(min-width:440px){.auth{margin-inline:auto}}
+.auth h1{font-size:32px;line-height:1.3}.auth form{display:grid;gap:12px}
+.seg{display:flex;background:rgba(255,255,255,.06);border-radius:14px;padding:4px}
+.seg button{flex:1;min-height:40px;border:0;border-radius:10px;background:none;color:var(--mut);font:inherit}.seg .on{background:rgba(255,255,255,.14);color:var(--fg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px 14px;padding:16px 20px;max-width:1000px;margin:auto}
+.empty{grid-column:1/-1;padding:40px 0;text-align:center}
+.card{cursor:pointer;transition:transform .4s var(--ease)}.card:hover{transform:translateY(-4px)}
+.ph{aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:linear-gradient(160deg,var(--b),var(--c));display:grid;place-items:center;font:600 56px "Songti SC","Noto Serif SC",serif;color:var(--a);will-change:transform}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.card h3{margin:10px 2px 0;font-size:16px}.card p{margin:0 2px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));z-index:10;display:flex;gap:4px;padding:6px;border-radius:999px}
+#nav button{min-height:44px;padding:0 18px;border:0;border-radius:999px;background:none;color:var(--mut);font:inherit;white-space:nowrap}#nav .on{background:rgba(255,255,255,.14);color:var(--fg)}
+.page{position:fixed;inset:0;z-index:20;overflow-y:auto;overscroll-behavior:contain}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(70% 50% at 50% 0%,var(--b),transparent 70%),var(--c)}
+.back{position:fixed;top:calc(12px + env(safe-area-inset-top));left:14px;z-index:2;width:44px;height:44px;border-radius:50%;font-size:26px;line-height:1;color:var(--fg)}
+.body{min-height:100%;display:flex;flex-direction:column;align-items:center;gap:28px;padding:84px 24px 56px;max-width:980px;margin:auto}
+.hero{width:min(78vw,340px);flex:none}
+.info{flex:1;min-width:0;width:100%}.info h1{font-size:34px;line-height:1.25}.info>*+*{margin-top:14px}
+.quote{font-size:18px;color:var(--a)}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin-top:20px}dt{color:var(--mut)}dd{overflow-wrap:anywhere}
+.page.center .body{text-align:center}.page.center dl{text-align:left}
+@media(min-width:720px){.page.left .body{flex-direction:row}.page.right .body{flex-direction:row-reverse}.page.left .body,.page.right .body{min-height:100%;gap:56px}.hero{width:340px}}
+.page.full .body{padding:0 0 56px;gap:0;max-width:none}
+.page.full .hero{width:min(100%,calc(88vh*.8));border-radius:0 0 28px 28px}
+.page.full .info{margin-top:-130px;padding:0 24px;position:relative;max-width:640px}
+.edit{max-width:560px;margin:auto;padding:16px 20px}
+.fld{display:grid;gap:6px;margin-bottom:16px}.pv{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--mut)}.pv input{width:20px;min-height:20px;height:20px}
+fieldset{border:0;margin:20px 0}legend{margin-bottom:10px;color:var(--mut)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chips label{position:relative}
+.chips input{position:absolute;opacity:0;width:0;min-height:0}
+.chips span{display:flex;align-items:center;gap:8px;padding:0 16px;min-height:44px;border:1px solid var(--line);border-radius:999px;cursor:pointer}
+.chips input:checked+span{border-color:var(--a);background:rgba(255,255,255,.1)}.chips input:focus-visible+span{outline:2px solid var(--a)}
+.chips i{width:12px;height:12px;border-radius:50%;background:var(--a)}
+.list{display:grid;gap:10px;padding:16px 20px;max-width:760px;margin:auto}
+.row{padding:14px 16px;display:grid;gap:10px;border-radius:18px}
+.acts{display:flex;flex-wrap:wrap;gap:8px}.acts button{min-height:40px;padding:0 14px;border:1px solid var(--line);border-radius:12px;background:none;color:var(--fg);font:inherit}
+#toast{position:fixed;top:calc(14px + env(safe-area-inset-top));left:50%;z-index:40;padding:10px 18px;border-radius:999px;transform:translate(-50%,-80px);transition:transform .4s var(--ease);pointer-events:none}
+#toast.on{transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<nav id="nav" class="glass" hidden></nav>
+<div id="toast" class="glass"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const T={aurora:['#0f2a2f','#1d6b5e','#7ef0c8'],sunset:['#2a1424','#b14a3d','#ffb08a'],forest:['#0e1f14','#2f6a3b','#b6e08a'],mono:['#0b0b0b','#444','#f0f0f0'],stars:['#0a0b24','#3a2a7a','#b9b4ff'],ocean:['#07192b','#0f5f8f','#8fd3ff']};
+const TN={aurora:'极光',sunset:'晚霞',forest:'森林',mono:'黑白',stars:'星空',ocean:'海洋'},LN={left:'左侧',right:'右侧',center:'居中',full:'全屏'};
+const FN={name:'名字',age:'年龄',trait:'性格',motto:'个性签名',bio:'个人简介',photo:'个人照片',hobbies:'兴趣爱好',contact:'联系方式',social:'社交账号'};
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let me=null,members=[];
+const theme=t=>{const c=T[t]||T.aurora;return `--c:${c[0]};--b:${c[1]};--a:${c[2]}`};
+const toast=m=>{const e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2400)};
+async function api(p,m='GET',b){
+  const r=await fetch('/api/'+p,{method:m,headers:{'Content-Type':'application/json'},body:b&&JSON.stringify(b)});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok){if(r.status===401&&me){me=null;authView()}throw Error(d.error||'请求失败')}
+  return d;
+}
+
+/* 登录 / 注册 */
+function authView(mode='login'){
+  $('#nav').hidden=true;const reg=mode==='reg';
+  $('#app').innerHTML=`<section class="auth glass"><h1 class="serif">我们的班级<br>青春档案</h1><p class="mut">仅限班级成员</p>
+  <div class="seg"><button data-m="login" class="${reg?'':'on'}">登录</button><button data-m="reg" class="${reg?'on':''}">注册</button></div>
+  <form id="f"><input name="u" placeholder="用户名" autocomplete="username" required><input name="p" type="password" placeholder="密码（至少 8 位）" autocomplete="${reg?'new-password':'current-password'}" required>${reg?'<input name="p2" type="password" placeholder="确认密码" autocomplete="new-password" required>':''}<p class="err" id="err"></p><button class="btn">${reg?'创建账号':'进入'}</button></form></section>`;
+  document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>authView(b.dataset.m));
+  $('#f').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),p=f.get('p');
+    try{if(reg&&p!==f.get('p2'))throw Error('两次输入的密码不一致');
+      await api(reg?'register':'login','POST',{username:f.get('u'),password:p});await boot(reg?'edit':'members')}
+    catch(x){$('#err').textContent=x.message}};
+}
+
+/* 成员列表 */
+async function listView(){
+  members=await api('members');
+  $('#app').innerHTML=`<header class="top"><h1 class="serif">班级成员</h1><input id="q" type="search" placeholder="按名字或性格搜索"></header><div id="grid" class="grid"></div>`;
+  const draw=()=>{const q=$('#q').value.trim().toLowerCase();
+    const L=members.filter(m=>!q||[m.profile.name,m.profile.trait].some(x=>(x||'').toLowerCase().includes(q)));
+    $('#grid').innerHTML=L.length?L.map(m=>`<article class="card" data-id="${m.id}" style="${theme(m.design.theme)}"><div class="ph">${m.profile.photo?`<img src="${esc(m.profile.photo)}" alt="">`:`<span>${esc([...m.profile.name][0])}</span>`}</div><h3>${esc(m.profile.name)}</h3><p class="mut">${esc(m.profile.trait||m.profile.motto||'')}</p></article>`).join(''):'<p class="mut empty">没有匹配的成员</p>'};
+  $('#q').oninput=draw;draw();
+  $('#grid').onclick=e=>{const c=e.target.closest('.card');if(c)openProfile(c)};
+}
+
+/* 点击卡片 → 照片共享元素过渡（FLIP，仅用 transform / opacity） */
+function openProfile(card){
+  const m=members.find(x=>x.id==card.dataset.id),p=m.profile,d=m.design;
+  const rows=[['年龄',p.age],['性格',p.trait],['兴趣爱好',p.hobbies],['联系方式',p.contact],['社交账号',p.social]].filter(r=>r[1]);
+  const pg=document.createElement('div');pg.className='page '+d.layout;pg.style.cssText=theme(d.theme);
+  pg.innerHTML=`<div class="bg"></div><button class="back glass" aria-label="返回">‹</button><div class="body"><div class="hero ph">${card.querySelector('.ph').innerHTML}</div><div class="info"><h1 class="serif s">${esc(p.name)}</h1>${p.motto?`<p class="quote s">“${esc(p.motto)}”</p>`:''}${p.bio?`<p class="s">${esc(p.bio)}</p>`:''}${rows.length?`<dl class="s">${rows.map(r=>`<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>`:''}</div></div>`;
+  document.body.appendChild(pg);document.body.style.overflow='hidden';card.style.visibility='hidden';
+  const hero=pg.querySelector('.hero'),bg=pg.querySelector('.bg'),S=pg.querySelectorAll('.s'),o={transformOrigin:'0 0'};
+  const E={duration:RM?1:650,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'};
+  const inv=()=>{const t=hero.getBoundingClientRect(),r=card.querySelector('.ph').getBoundingClientRect();
+    return `translate(${r.left-t.left}px,${r.top-t.top}px) scale(${r.width/t.width})`};
+  bg.animate([{opacity:0},{opacity:1}],{...E,duration:RM?1:500});
+  hero.animate([{...o,transform:inv()},{...o,transform:'none'}],E);
+  const dx=d.layout==='right'?-28:28;
+  S.forEach((e,i)=>e.animate([{opacity:0,transform:`translateX(${dx}px)`},{opacity:1,transform:'none'}],{...E,delay:RM?0:260+i*80}));
+  const back=pg.querySelector('.back');
+  const close=async()=>{back.onclick=null;removeEventListener('keydown',esc2);
+    const a=hero.animate([{...o,transform:'none'},{...o,transform:inv()}],{...E,duration:RM?1:560});
+    S.forEach(e=>e.animate([{opacity:1},{opacity:0}],{duration:RM?1:220,fill:'forwards'}));
+    bg.animate([{opacity:1},{opacity:0}],{duration:RM?1:420,delay:RM?0:140,fill:'forwards'});
+    back.animate([{opacity:1},{opacity:0}],{duration:RM?1:200,fill:'forwards'});
+    await a.finished;card.style.visibility='';pg.remove();document.body.style.overflow=''};
+  const esc2=e=>{if(e.key==='Escape')close()};
+  back.onclick=close;addEventListener('keydown',esc2);
+}
+
+/* 我的主页设计 + 隐私 */
+function editView(){
+  const P=me.profile,V=me.privacy,D=me.design;
+  const row=(f,area)=>`<label class="fld"><span>${FN[f]}</span>${area?`<textarea name="${f}" rows="4" maxlength="1000">${esc(P[f])}</textarea>`:`<input name="${f}" value="${esc(P[f])}" maxlength="200" ${f==='photo'?'type="url" placeholder="https://… 图片链接"':''}>`}<span class="pv"><input type="checkbox" name="v_${f}" ${V[f]?'checked':''}>公开给其他成员</span></label>`;
+  $('#app').innerHTML=`<header class="top"><h1 class="serif">我的主页设计</h1><p class="mut">只有勾选“公开”的内容，其他成员才看得到。</p></header>
+  <form id="e" class="edit">${['name','age','trait','motto','photo'].map(f=>row(f)).join('')}${row('bio',1)}${['hobbies','contact','social'].map(f=>row(f)).join('')}
+  <fieldset><legend>照片位置</legend><div class="chips">${Object.keys(LN).map(k=>`<label><input type="radio" name="layout" value="${k}" ${D.layout===k?'checked':''}><span>${LN[k]}</span></label>`).join('')}</div></fieldset>
+  <fieldset><legend>主题</legend><div class="chips">${Object.keys(TN).map(k=>`<label style="${theme(k)}"><input type="radio" name="theme" value="${k}" ${D.theme===k?'checked':''}><span><i></i>${TN[k]}</span></label>`).join('')}</div></fieldset>
+  <p class="err" id="err"></p><button class="btn">保存</button></form>`;
+  $('#e').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target),profile={},privacy={};
+    for(const k in FN){profile[k]=f.get(k)||'';privacy[k]=f.has('v_'+k)}
+    try{await api('me','PUT',{profile,privacy,design:{layout:f.get('layout'),theme:f.get('theme')}});me=await api('me');$('#err').textContent='';toast('已保存')}
+    catch(x){$('#err').textContent=x.message}};
+}
+
+/* 管理后台（权限由服务端强制校验，这里只决定显示哪些按钮） */
+async function adminView(){
+  const U=await api('admin/users'),S=me.role==='super';
+  const RL={super:'超级管理员',admin:'管理员',member:'成员'};
+  $('#app').innerHTML=`<header class="top"><h1 class="serif">管理后台</h1><p class="mut">${RL[me.role]}</p></header><div class="list">${U.map(u=>{
+    const can=u.id!==me.id&&u.role!=='super'&&(S||u.role==='member'),b=(a,t)=>`<button data-a="${a}" data-id="${u.id}">${t}</button>`;
+    return `<div class="row glass"><div><b>${esc(u.name||u.username)}</b> <small class="mut">@${esc(u.username)} · ${RL[u.role]}${u.disabled?' · 已禁用':''}</small></div>${can?`<div class="acts">${u.disabled?b('enable','启用'):b('disable','禁用')}${b('reset','重置资料')}${S?(u.role==='admin'?b('demote','取消管理员'):b('promote','设为管理员')):''}${b('delete','删除')}</div>`:''}</div>`}).join('')}</div>`;
+  $('#app').onclick=async e=>{const b=e.target.closest('[data-a]');if(!b)return;
+    if(['delete','reset'].includes(b.dataset.a)&&!confirm('确定执行此操作？'))return;
+    try{await api('admin/users/'+b.dataset.id,'POST',{action:b.dataset.a});adminView()}catch(x){toast(x.message)}};
+}
+
+/* 导航与启动 */
+function go(v){
+  const n=$('#nav');n.hidden=false;
+  n.innerHTML=[['members','成员'],['edit','我的'],...(me.role!=='member'?[['admin','管理']]:[]),['out','退出']].map(([k,t])=>`<button data-v="${k}" class="${k===v?'on':''}">${t}</button>`).join('');
+  n.onclick=async e=>{const k=e.target.dataset.v;if(!k)return;
+    if(k==='out'){await api('logout','POST');me=null;return authView()}go(k)};
+  $('#app').onclick=null;scrollTo(0,0);
+  Promise.resolve().then(()=>({members:listView,edit:editView,admin:adminView})[v]()).catch(x=>toast(x.message));
+}
+async function boot(v='members'){try{me=await api('me')}catch{return authView()}go(v)}
+boot();
+</script>
+</body>
+</html>
